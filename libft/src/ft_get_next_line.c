@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:48:35 by paperrin          #+#    #+#             */
-/*   Updated: 2016/11/11 12:48:47 by paperrin         ###   ########.fr       */
+/*   Updated: 2016/11/12 18:19:58 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int			read_fd(t_list **lst_fd, t_list *cur, char **line)
 	return (bytes_read);
 }
 
-int					get_next_line(const int fd, char **line)
+int					ft_get_next_line(const int fd, char **line)
 {
 	static t_list	*lst_fd;
 	t_list			*cur;

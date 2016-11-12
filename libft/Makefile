@@ -6,7 +6,7 @@
 #    By: paperrin <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 12:00:36 by paperrin          #+#    #+#              #
-#    Updated: 2016/11/11 17:05:55 by paperrin         ###   ########.fr        #
+#    Updated: 2016/11/12 15:55:09 by paperrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,8 @@ CFILES		=	ft_swap.c			\
 				ft_lstmap.c			\
 				ft_lstfind.c		\
 				ft_lstdelfind.c		\
+				ft_lstat.c			\
+				ft_lstpush.c		\
 				ft_get_next_line.c
 
 SRC			=	$(CFILES:%=$(SRC_DIR)%)

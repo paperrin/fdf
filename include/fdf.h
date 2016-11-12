@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:44:41 by paperrin          #+#    #+#             */
-/*   Updated: 2016/11/12 11:33:12 by paperrin         ###   ########.fr       */
+/*   Updated: 2016/11/12 18:47:42 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include "../libft/include/libft.h"
 # include "mlx.h"
+# include <math.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <unistd.h>
+
+# define W 840
+# define H 480
 
 typedef struct	s_mlx
 {
@@ -31,11 +38,14 @@ typedef struct	s_color
 
 typedef struct	s_coord
 {
-	int		x;
-	int		y;
+	double		x;
+	double		y;
 }				t_coord;
 
-int		get_color(t_color *color);
-void	put_line(t_mlx *mlx, t_coord p1, t_coord p2, t_color *color);
+int				get_color(t_color *color);
+void			draw_line(t_mlx *mlx, t_coord p1, t_coord p2, t_color *color);
+t_coord			***read_map(char *file_path);
+void			draw_map(t_mlx *mlx, t_coord ***map);
+t_coord				*to_iso_coord(int x, int y, int z);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 12:52:47 by paperrin          #+#    #+#             */
-/*   Updated: 2016/11/11 18:56:33 by paperrin         ###   ########.fr       */
+/*   Updated: 2016/11/12 17:54:01 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define LIBFT_H
 
 # include <string.h>
-
-# include "ft_get_next_line.h"
 
 # define ABS(Value) (Value >= 0 ? Value : -Value)
 
@@ -90,5 +88,8 @@ t_list			*ft_lstfind(t_list *list, void *cmp_data
 		, t_list *(*cmp_f)(t_list*, void*));
 t_list			*ft_lstdelfind(t_list *list, void (*del_f)(void*, size_t)
 		, void *cmp_data, t_list *(*cmp_f)(t_list*, void*));
+t_list			*ft_lstat(t_list* list, size_t index);
+void			ft_lstpush(t_list **list, t_list *elem);
+int				ft_get_next_line(const int fd, char **line);
 
 #endif

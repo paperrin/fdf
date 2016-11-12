@@ -6,7 +6,7 @@
 #    By: paperrin <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 12:00:36 by paperrin          #+#    #+#              #
-#    Updated: 2016/11/11 17:10:47 by paperrin         ###   ########.fr        #
+#    Updated: 2016/11/12 18:36:15 by paperrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	fdf
 
 CC			=	gcc
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-g -Wall -Wextra -Werror
 
 RM			=	rm -rf
 
@@ -25,8 +25,9 @@ OBJ_DIR		=	./obj/
 INC_DIR		=	./include/
 
 CFILES		=	fdf.c			\
-				put_line.c		\
-				color.c
+				draw_line.c		\
+				color.c			\
+				map.c
 
 SRC			=	$(CFILES:%=$(SRC_DIR)%)
 
