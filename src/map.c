@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 13:49:19 by paperrin          #+#    #+#             */
-/*   Updated: 2016/11/13 17:21:47 by paperrin         ###   ########.fr       */
+/*   Updated: 2016/11/14 17:39:04 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,24 @@ t_point				iso(int x, int y, int z, t_map *map)
 	t_point		iso;
 	double		cm;
 	double		scale;
+	t_pos		offset;
 
-	scale = (W / map->w);
+	scale = (W / (map->w + map->h * 0.4));
 	scale = scale < (H / ((map->h / 3) + map->z_max + ABS(map->z_min))) ? scale : (H / ((map->h / 3) + map->z_max + ABS(map->z_min)));
+	scale *= 0.8;
 
 	cm = (double)(ABS(map->z_min) + z) / (ABS(map->z_max) + ABS(map->z_min));
-	iso.color.r = 0 + cm * 250;
-	iso.color.g = 50 + cm * 200;
-	iso.color.b = 0 + cm * 250;
+	iso.color.r = 0 + cm * 255;
+	iso.color.g = 50 + cm * 205;
+	iso.color.b = 0 + cm * 255;
 
 	y *= scale / 3;
 	x *= scale;
 	z *= -scale;
-
-	y += (double)(map->z_max * scale);
-	x -= map->h * scale * 0.1 + 100;//(double)map->h * scale * 0.4 - map->w * scale;
-	iso.pos.x = round(((double)((map->h * scale) - y) * 0.4) + x);
-	iso.pos.y = round(y + z);
+	offset.x = 0;
+	offset.y = (double)(map->z_max * scale);
+	iso.pos.x = offset.x + round(((double)((map->h * scale) - y) * 0.4) + x);
+	iso.pos.y = offset.y + round(y + z);
 	return (iso);
 }
 
@@ -143,13 +144,9 @@ t_map 				*read_map(char *file_path)
 
 void				draw_map(t_mlx *mlx, t_map *map)
 {
-	t_color	color;
 	int		x;
 	int		y;
 
-	color.r = 255;
-	color.g = 120;
-	color.b = 120;
 	y = 0;
 	while (y < map->h)
 	{
@@ -174,4 +171,5 @@ void				draw_map(t_mlx *mlx, t_map *map)
 		}
 		y++;
 	}
+	mlx_put_image_to_window(mlx->core, mlx->win, mlx->db_img, 0, 0);
 }
