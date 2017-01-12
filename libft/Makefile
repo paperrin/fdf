@@ -6,7 +6,7 @@
 #    By: paperrin <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 12:00:36 by paperrin          #+#    #+#              #
-#    Updated: 2016/11/12 15:55:09 by paperrin         ###   ########.fr        #
+#    Updated: 2017/01/12 17:38:19 by paperrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,10 @@ CFILES		=	ft_swap.c			\
 				ft_lstdelfind.c		\
 				ft_lstat.c			\
 				ft_lstpush.c		\
-				ft_get_next_line.c
+				ft_get_next_line.c	\
+				math/ft_vec3f.c				\
+				math/ft_matrix.c			\
+				math/ft_matrix_multiply.c
 
 SRC			=	$(CFILES:%=$(SRC_DIR)%)
 
@@ -103,8 +106,9 @@ $(NAME)			:	$(OBJ)
 					ranlib $(NAME)
 
 $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c
-						mkdir -p $(OBJ_DIR)
-						gcc $(CFLAGS) -I$(INC_DIR) -c $< -o $@
+					@mkdir -p $(OBJ_DIR)
+					@mkdir -p $(OBJ_DIR)math
+					gcc $(CFLAGS) -I$(INC_DIR) -c $< -o $@
 
 clean			:
 						$(RM) $(OBJ_DIR)
@@ -113,3 +117,19 @@ fclean			:	clean
 						$(RM) $(NAME)
 
 re				:	fclean all
+
+norm			:
+	@echo "\x1b[35m\n.==================[ \x1b[0m\c"
+	@echo "\x1b[35;1mNormi-Check\x1b[0m\c"
+	@echo " \x1b[35m]==================.\x1b[31;1m"
+	@norminette include/ src/ \
+		| tr "\n" "@" \
+		| sed -e "s/Norme: /$$/g" \
+		| tr "$$" "\n" \
+		| grep -e Error -e Warning \
+		| tr "@" "\n" \
+		| sed "N;$$!P;$$!D;$$d"
+	@echo "\x1b[0m\x1b[35m\c"
+	@echo ".___________________________________________________.\n\x1b[0m"
+
+.PHONY : all, clean, fclean, re, norm

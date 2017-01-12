@@ -6,7 +6,7 @@
 #    By: paperrin <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 12:00:36 by paperrin          #+#    #+#              #
-#    Updated: 2016/11/14 14:09:59 by paperrin         ###   ########.fr        #
+#    Updated: 2017/01/09 15:08:12 by paperrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ CFILES		=	fdf.c			\
 				draw_line.c		\
 				color.c			\
 				map.c			\
-				set_pixel.c
+				set_pixel.c		\
+				event_handler.c
 
 SRC			=	$(CFILES:%=$(SRC_DIR)%)
 

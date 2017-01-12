@@ -6,12 +6,11 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 13:49:19 by paperrin          #+#    #+#             */
-/*   Updated: 2016/11/14 17:39:04 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/01/12 19:58:33 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
 t_point				iso(int x, int y, int z, t_map *map)
 {
@@ -19,6 +18,7 @@ t_point				iso(int x, int y, int z, t_map *map)
 	double		cm;
 	double		scale;
 	t_pos		offset;
+	t_pos		line_offset;
 
 	scale = (W / (map->w + map->h * 0.4));
 	scale = scale < (H / ((map->h / 3) + map->z_max + ABS(map->z_min))) ? scale : (H / ((map->h / 3) + map->z_max + ABS(map->z_min)));
@@ -34,9 +34,36 @@ t_point				iso(int x, int y, int z, t_map *map)
 	z *= -scale;
 	offset.x = 0;
 	offset.y = (double)(map->z_max * scale);
-	iso.pos.x = offset.x + round(((double)((map->h * scale) - y) * 0.4) + x);
-	iso.pos.y = offset.y + round(y + z);
+	line_offset.x = (map->h * scale - y) * 0.4;
+	iso.pos.x = offset.x + line_offset.x + x;
+	iso.pos.y = offset.y + y + z;
+	iso.pos.x = round(iso.pos.x);
+	iso.pos.y = round(iso.pos.y);
 	return (iso);
+}
+
+t_point				custom(int x, int y, int z, t_map *map)
+{
+	t_matrix	*mx;
+	t_point		point;
+	t_vec3f		map_pos;
+	t_vec3f		pos;
+
+	mx = ft_matrix_to_identity(ft_matrix_new(4));
+	mx->m[3] = 100;
+	mx->m[7] = 150;
+	map_pos = ft_vec3f(x * 10, y * 10, z * 10);
+	pos = ft_vec3f_transform(&map_pos, mx);
+	(void)map;
+
+	point.color.r = 255;
+	point.color.g = 255;
+	point.color.b = 255;
+	point.pos.x = pos.x;
+	point.pos.y = pos.y - pos.z;
+	point.pos.x = round(point.pos.x);
+	point.pos.y = round(point.pos.y);
+	return (point);
 }
 
 static t_map		*alloc_map(char *file_path)
@@ -146,7 +173,9 @@ void				draw_map(t_mlx *mlx, t_map *map)
 {
 	int		x;
 	int		y;
+	t_point (*f_proj)(int, int, int, t_map*);
 
+	f_proj = &custom;
 	y = 0;
 	while (y < map->h)
 	{
@@ -156,16 +185,16 @@ void				draw_map(t_mlx *mlx, t_map *map)
 			if (y > 0)
 			{
 				if (map->z[y][x] > map->z[y - 1][x])
-					draw_line(mlx, iso(x, y, map->z[y][x], map), iso(x, y - 1, map->z[y - 1][x], map));
+					draw_line(mlx, (*f_proj)(x, y, map->z[y][x], map), (*f_proj)(x, y - 1, map->z[y - 1][x], map));
 				else
-					draw_line(mlx, iso(x, y - 1, map->z[y - 1][x], map), iso(x, y, map->z[y][x], map));
+					draw_line(mlx, (*f_proj)(x, y - 1, map->z[y - 1][x], map), (*f_proj)(x, y, map->z[y][x], map));
 			}
 			if (x > 0)
 			{
 				if (map->z[y][x] > map->z[y][x - 1])
-					draw_line(mlx, iso(x, y, map->z[y][x], map), iso(x - 1, y, map->z[y][x - 1], map));
+					draw_line(mlx, (*f_proj)(x, y, map->z[y][x], map), (*f_proj)(x - 1, y, map->z[y][x - 1], map));
 				else
-					draw_line(mlx, iso(x - 1, y, map->z[y][x - 1], map), iso(x, y, map->z[y][x], map));
+					draw_line(mlx, (*f_proj)(x - 1, y, map->z[y][x - 1], map), (*f_proj)(x, y, map->z[y][x], map));
 			}
 			x++;
 		}

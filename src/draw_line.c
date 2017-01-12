@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:11:36 by paperrin          #+#    #+#             */
-/*   Updated: 2016/11/14 14:54:58 by paperrin         ###   ########.fr       */
+/*   Updated: 2016/11/15 15:53:37 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	draw_line(t_mlx *mlx, t_point a, t_point b)
 		//mlx_pixel_put(mlx->core,a mlx->win, cur.x, cur.y, get_color(mlx->core, color_gradient(a, b, cur, diff)));
 		cur.color = color_gradient(a, b, cur.pos, diff);
 		set_pixel(mlx, &cur);
-		if (cur.pos.x == b.pos.x && cur.pos.y == b.pos.y)
+		if (cur.pos.x >= b.pos.x && cur.pos.y >= b.pos.y)
 			break ;
 		if (err > -diff.x)
 		{

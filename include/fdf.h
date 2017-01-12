@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:44:41 by paperrin          #+#    #+#             */
-/*   Updated: 2016/11/14 17:48:48 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/01/12 19:16:44 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "../libft/include/ft_math.h"
 
-# define W 2400
-# define H 1200
+# define W 800
+# define H 480
+
+# define KEYCODE_ESCAPE 53
 
 typedef struct	s_mlx
 {
@@ -67,5 +70,8 @@ void			draw_line(t_mlx *mlx, t_point p1, t_point p2);
 t_map			*read_map(char *file_path);
 void			draw_map(t_mlx *mlx, t_map *map);
 void			set_pixel(t_mlx *mlx, t_point *point);
+int				event_expose(void *param);
+int				event_key(int keycode, void *param);
+void			exit_clean(t_map *map);
 
 #endif
