@@ -6,7 +6,7 @@
 #    By: paperrin <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 12:00:36 by paperrin          #+#    #+#              #
-#    Updated: 2017/01/12 17:38:19 by paperrin         ###   ########.fr        #
+#    Updated: 2017/03/27 15:53:42 by paperrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,10 @@ CFILES		=	ft_swap.c			\
 				ft_get_next_line.c	\
 				math/ft_vec3f.c				\
 				math/ft_matrix.c			\
-				math/ft_matrix_multiply.c
+				math/ft_matrix_multiply.c	\
+				math/ft_matrix_translate.c	\
+				math/ft_matrix_rot.c		\
+				math/ft_matrix_scale.c
 
 SRC			=	$(CFILES:%=$(SRC_DIR)%)
 

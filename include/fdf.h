@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:44:41 by paperrin          #+#    #+#             */
-/*   Updated: 2017/01/12 19:16:44 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/03/27 16:58:38 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 # define FDF_H
 
 # include "../libft/include/libft.h"
-# include "mlx.h"
+# include "../mlx/mlx.h"
 # include <math.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include "../libft/include/ft_math.h"
 
-# define W 800
-# define H 480
+# define W 1600
+# define H 800
 
 # define KEYCODE_ESCAPE 53
 
@@ -46,8 +46,8 @@ typedef struct	s_color
 
 typedef struct	s_pos
 {
-	double		x;
-	double		y;
+	float		x;
+	float		y;
 }				t_pos;
 
 typedef struct	s_point
@@ -63,10 +63,13 @@ typedef struct	s_map
 	int			**z;
 	int			z_max;
 	int			z_min;
+	t_matrix	ortho;
+	t_matrix	proj;
 }				t_map;
 
 unsigned int	get_color(void *mlx_core, t_color color);
 void			draw_line(t_mlx *mlx, t_point p1, t_point p2);
+void			init_matrices(t_map *map);
 t_map			*read_map(char *file_path);
 void			draw_map(t_mlx *mlx, t_map *map);
 void			set_pixel(t_mlx *mlx, t_point *point);

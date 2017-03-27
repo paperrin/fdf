@@ -6,13 +6,14 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 15:34:49 by paperrin          #+#    #+#             */
-/*   Updated: 2017/01/12 17:41:05 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/03/27 15:49:16 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
 
-static float	cross_multiply(float *line, int line_size, float *col, int col_size)
+static float	cross_multiply(float const * const line, int line_size
+		, float const * const col, int col_size)
 {
 	float	ret;
 	int		size;
@@ -31,20 +32,18 @@ void			ft_matrix_multiply(
 {
 	int		line;
 	int		col;
-	int		size;
 
-	if (!(dest && dest->m && a && a->m && b && b->m))
+	if (!(dest && a && b))
 		return;
-	size = (a->size < b->size ? a->size : b->size);
 	line = -1;
-	while (++line < size)
+	while (++line < MATH_MX_SIZE)
 	{
 		col = -1;
-		while (++col < size)
+		while (++col < MATH_MX_SIZE)
 		{
-			dest->m[col + line * size] = cross_multiply(
-					&a->m[line * a->size], a->size
-					, &b->m[col], b->size
+			dest->m[col + line * MATH_MX_SIZE] = cross_multiply(
+					&a->m[line * MATH_MX_SIZE], MATH_MX_SIZE
+					, &b->m[col], MATH_MX_SIZE
 			);
 		}
 	}

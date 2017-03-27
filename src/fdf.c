@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:43:00 by paperrin          #+#    #+#             */
-/*   Updated: 2016/11/21 14:44:18 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/03/06 18:54:40 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ void	exit_clean(t_map *map)
 		free(map->z[i]);
 	free(map);
 	exit(EXIT_SUCCESS);
+}
+
+void	init_matrices(t_map *map)
+{
+	(void)map;
 }
 
 int		main(int ac, char **av)
