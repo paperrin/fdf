@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:11:36 by paperrin          #+#    #+#             */
-/*   Updated: 2017/03/27 20:07:47 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/03/28 19:33:17 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static t_color	color_gradient(t_point a, t_point b, t_pos cur, t_pos diff)
 	t_color		color;
 	float		max;
 	float		state;
-	float		mult;
 
 	max = diff.x + diff.y;
 	diff.x = ABS((cur.x - b.pos.x));

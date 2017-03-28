@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 18:01:00 by paperrin          #+#    #+#             */
-/*   Updated: 2017/03/27 20:29:06 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/03/28 19:53:54 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,15 @@ static t_point			proj(int x, int y, int z, t_map *map)
 	t_vec3f		map_pos;
 	t_vec3f		pos;
 
-	int zoom = 20;
-
 	ft_matrix_to_identity(&mx_ortho);
-	ft_matrix_scale(&mx_ortho, zoom, zoom, zoom);
 	ft_matrix_translate(&mx_ortho, W / 2, H / 2, 0);
 
 	ft_matrix_to_identity(&mx_proj);
-	ft_matrix_translate(&mx_proj, -(map->w / 2), -(map->h / 2), -((map->z_max - map->z_min) / 2));
-	ft_matrix_rot_x(&mx_proj, MATH_TO_RAD(30));
-	ft_matrix_rot_z(&mx_proj, MATH_TO_RAD(30));
+	ft_matrix_scale(&mx_proj, map->zoom, map->zoom, map->zoom);
+	ft_matrix_rot_x(&mx_proj, MATH_TO_RAD(map->xRot));
+	ft_matrix_rot_y(&mx_proj, MATH_TO_RAD(map->yRot));
+	ft_matrix_rot_z(&mx_proj, MATH_TO_RAD(map->zRot));
+	ft_matrix_translate(&mx_proj, -(map->w / 2) - map->xOff, -(map->h / 2) - map->yOff, -((map->z_max - map->z_min) / 2));
 
 	map_pos = ft_vec3f(x, y, z);
 	point.color.r = get_color_component(&map_pos, map, 0, 255);
@@ -81,31 +80,15 @@ static void				draw_sides(t_mlx *mlx, t_map *map, int x, int y)
 	}
 }
 
-// TODO: REMOVE
-void					draw_ln(t_mlx *mlx, int x1, int y1, int x2, int y2)
-{
-	t_point		a;
-	a.pos.x = 150 + x1;
-	a.pos.y = 150 + y1;
-	a.color.r = 0;
-	a.color.g = 255;
-	a.color.b = 0;
-
-	t_point		b;
-	b.pos.x = 150 + x2;
-	b.pos.y = 150 + y2;
-	b.color.r = 255;
-	b.color.g = 0;
-	b.color.b = 0;
-
-	draw_line(mlx, a, b);
-}
-
 void					draw_map(t_mlx *mlx, t_map *map)
 {
-	//*/
 	int		x;
 	int		y;
+
+
+	map->mlx->db_img = mlx_new_image(map->mlx->core, W, H);
+	map->mlx->draw_buffer = mlx_get_data_addr(mlx->db_img, &(mlx->bits_per_pxl)
+			, &(mlx->db_w), &(mlx->endian));
 
 	y = 0;
 	while (y < map->h)
@@ -118,14 +101,8 @@ void					draw_map(t_mlx *mlx, t_map *map)
 		}
 		y++;
 	}
-	//*/
 
-	/*/
-	(void)map;
-
-	draw_ln(mlx, 0, 0, 200, 0);
-	draw_ln(mlx, 200, 10, 0, 10);
-	//*/
-
+	mlx_clear_window(map->mlx->core, map->mlx->win);
 	mlx_put_image_to_window(mlx->core, mlx->win, mlx->db_img, 0, 0);
+	mlx_destroy_image(map->mlx->core, map->mlx->db_img);
 }

@@ -6,7 +6,7 @@
 #    By: paperrin <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 12:00:36 by paperrin          #+#    #+#              #
-#    Updated: 2017/03/27 18:14:28 by paperrin         ###   ########.fr        #
+#    Updated: 2017/03/28 17:36:12 by paperrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	fdf
 
 CC			=	gcc
 
-CFLAGS		=	-g #-Wall -Wextra -Werror
+CFLAGS		=	-g -Wall -Wextra -Werror
 
 RM			=	rm -rf
 
@@ -43,6 +43,8 @@ CFILES		=	fdf.c			\
 				set_pixel.c		\
 				event_handler.c
 
+HFILES		=	./include/fdf.h
+
 SRC			=	$(CFILES:%=$(SRC_DIR)%)
 
 OBJ			=	$(CFILES:%.c=$(OBJ_DIR)%.o)
@@ -51,7 +53,7 @@ OBJ			=	$(CFILES:%.c=$(OBJ_DIR)%.o)
 
 all				:	$(NAME)
 
-$(NAME)			:	$(OBJ)
+$(NAME)			:	$(OBJ) $(HFILES)
 						make -C ./mlx/
 						make -C ./libft/
 						$(CC) $(OBJ) -o $@ $(LIB_PARAMS) $(LIBS) \

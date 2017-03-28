@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:44:41 by paperrin          #+#    #+#             */
-/*   Updated: 2017/03/27 16:58:38 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/03/28 19:40:14 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,25 @@
 # define W 1600
 # define H 800
 
-# define KEYCODE_ESCAPE 53
+# define ROT_STEP 15
+
+# define KC_ESCAPE 53
+
+# define KC_ZOOM_M 27
+# define KC_ZOOM_P 24
+
+# define KC_UP 126
+# define KC_DOWN 125
+# define KC_LEFT 123
+# define KC_RIGHT 124
+
+# define KC_ROT_X_P 13
+# define KC_ROT_X_M 1
+# define KC_ROT_Z_P 12
+# define KC_ROT_Z_M 14
+# define KC_ROT_Y_P 2
+# define KC_ROT_Y_M 0
+
 
 typedef struct	s_mlx
 {
@@ -58,14 +76,19 @@ typedef struct	s_point
 
 typedef struct	s_map
 {
-	int			w;
-	int			h;
-	int			**z;
-	int			z_max;
-	int			z_min;
-	t_matrix	ortho;
-	t_matrix	proj;
-}				t_map;
+	t_mlx			*mlx;
+	int				w;
+	int				h;
+	int				**z;
+	int				z_max;
+	int				z_min;
+	int				zoom;
+	int				xOff;
+	int				yOff;
+	int				xRot;
+	int				yRot;
+	int				zRot;
+}					t_map;
 
 unsigned int	get_color(void *mlx_core, t_color color);
 void			draw_line(t_mlx *mlx, t_point p1, t_point p2);

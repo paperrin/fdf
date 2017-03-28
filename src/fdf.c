@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:43:00 by paperrin          #+#    #+#             */
-/*   Updated: 2017/03/06 18:54:40 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/03/28 19:47:58 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,14 @@ int		main(int ac, char **av)
 	if (!map)
 		exit_clean(map);
 	mlx.core = mlx_init();
-	mlx.db_img = mlx_new_image(mlx.core, W, H);
-	mlx.draw_buffer = mlx_get_data_addr(mlx.db_img, &mlx.bits_per_pxl
-			, &mlx.db_w, &mlx.endian);
 	mlx.win = mlx_new_window(mlx.core, W, H, "FDF paperrin");
+	map->mlx = &mlx;
+	map->zoom = 1;
+	map->xOff = 0;
+	map->yOff = 0;
+	map->xRot = 0;
+	map->yRot = 0;
+	map->zRot = 0;
 	mlx_expose_hook(mlx.win, &event_expose, (void*)&mlx);
 	mlx_key_hook(mlx.win, &event_key, map);
 	draw_map(&mlx, map);
