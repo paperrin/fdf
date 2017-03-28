@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:11:36 by paperrin          #+#    #+#             */
-/*   Updated: 2017/03/28 19:33:17 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/03/28 20:25:19 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,22 @@ static t_color	color_gradient(t_point a, t_point b, t_pos cur, t_pos diff)
 	return (color);
 }
 
+static int		line_out_of_screen(t_pos const * const pos
+		, t_pos const * const step)
+{
+	if ((pos->x < 0 && step->x == -1)
+		|| (pos->x >= W && step->x == 1)
+		|| (pos->y < 0 && step->y == -1)
+		|| (pos->y >= H && step->y == 1))
+		return (1);
+	return (0);
+}
+
+static int		pixel_in_screen(t_pos *pos)
+{
+	return (pos->x >= 0 && pos->x < W && pos->y >= 0 && pos->y < H);
+}
+
 void	draw_line(t_mlx *mlx, t_point a, t_point b)
 {
 	t_pos		diff;
@@ -44,8 +60,13 @@ void	draw_line(t_mlx *mlx, t_point a, t_point b)
 	cur.pos.y = a.pos.y;
 	while (1)
 	{
-		cur.color = color_gradient(a, b, cur.pos, diff);
-		set_pixel(mlx, &cur);
+		if (pixel_in_screen((&cur.pos)))
+		{
+			cur.color = color_gradient(a, b, cur.pos, diff);
+			set_pixel(mlx, &cur);
+		}
+		else if (line_out_of_screen((&cur.pos), &step))
+			return ;
 		if (
 			((step.x == 1) ? cur.pos.x >= b.pos.x : 1)
 			&& ((step.x == -1) ? cur.pos.x <= b.pos.x : 1)
