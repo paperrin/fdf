@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 13:49:19 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/01 22:43:41 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/01 22:58:26 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static t_map		*alloc_map(char *file_path)
 	size_t	nb_lines;
 	t_map	*map;
 
+	if ((fd = open(file_path, O_RDONLY)) < 0)
+		return (NULL);
 	map = (t_map*)malloc(sizeof(t_map));
 	if (!map)
-		return (NULL);
-	if ((fd = open(file_path, O_RDONLY)) < 0)
 		return (NULL);
 	nb_lines = 0;
 	while ((ret = ft_get_next_line(fd, &line)) > 0)
@@ -103,8 +103,7 @@ t_map				*read_map(char *file_path)
 
 	if (!(map = alloc_map(file_path)))
 		return (NULL);
-	fd = open(file_path, O_RDONLY);
-	if (fd == -1)
+	if ((fd = open(file_path, O_RDONLY)) < 0)
 		return (NULL);
 	y = 0;
 	while ((ret = ft_get_next_line(fd, &line)) > 0)

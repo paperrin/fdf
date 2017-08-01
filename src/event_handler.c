@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 14:09:55 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/01 22:46:33 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/01 23:18:13 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		event_expose(void *param)
 void	key_escape(t_app *app, char *e)
 {
 	(void)e;
-	exit_clean(app->map);
+	destroy_app(app, EXIT_SUCCESS);
 }
 
 void	key_move(t_app *app, char *e)

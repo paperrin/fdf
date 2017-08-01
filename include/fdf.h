@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:44:41 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/01 22:48:27 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/01 23:17:40 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,5 @@ void				draw_map(t_app *app);
 void				set_pixel(t_app *app, t_point *point);
 int					event_expose(void *param);
 int					event_key_down(int keycode, void *param);
-void				exit_clean(t_map *map);
 
 #endif
