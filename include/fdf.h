@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:44:41 by paperrin          #+#    #+#             */
-/*   Updated: 2017/03/28 19:40:14 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/01 21:03:46 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,48 @@
 # define KC_ROT_Y_P 2
 # define KC_ROT_Y_M 0
 
-
-typedef struct	s_mlx
+typedef struct	s_map
 {
-	void	*core;
-	void	*win;
-	char	*draw_buffer;
-	void	*db_img;
-	int		db_w;
-	int		endian;
-	int		bits_per_pxl;
-}				t_mlx;
+	t_matrix		mx;
+	t_matrix		mx_ortho;
+	t_matrix		mx_proj;
+	int				w;
+	int				h;
+	int				**z;
+	int				z_max;
+	int				z_min;
+	int				zoom;
+	int				xOff;
+	int				yOff;
+	int				xRot;
+	int				yRot;
+	int				zRot;
+}					t_map;
+
+typedef struct		s_mlx_image
+{
+	void	*image;
+	char	*pixels;
+	int		bits_per_pixel;
+	int		bytes_width;
+	int		bytes_height;
+	int		is_big_endian;
+}					t_mlx_image;
+
+typedef struct		s_mlx
+{
+	void			*core;
+	void			*win;
+}					t_mlx;
+
+typedef struct		s_app
+{
+	t_mlx			mlx;
+	t_mlx_image		draw_buf;
+	int				width;
+	int				height;
+	t_map			*map;
+}					t_app;
 
 typedef struct	s_color
 {
@@ -74,30 +105,16 @@ typedef struct	s_point
 	t_color		color;
 }				t_point;
 
-typedef struct	s_map
-{
-	t_mlx			*mlx;
-	int				w;
-	int				h;
-	int				**z;
-	int				z_max;
-	int				z_min;
-	int				zoom;
-	int				xOff;
-	int				yOff;
-	int				xRot;
-	int				yRot;
-	int				zRot;
-}					t_map;
-
+void			destroy_app(t_app *app, int exit_code);
+void			clear_image(t_mlx_image *image, unsigned int color);
 unsigned int	get_color(void *mlx_core, t_color color);
-void			draw_line(t_mlx *mlx, t_point p1, t_point p2);
-void			init_matrices(t_map *map);
+void			draw_line(t_app *app, t_point p1, t_point p2);
+void			update_matrices(t_map *map);
 t_map			*read_map(char *file_path);
-void			draw_map(t_mlx *mlx, t_map *map);
-void			set_pixel(t_mlx *mlx, t_point *point);
+void			draw_map(t_app *app);
+void			set_pixel(t_app *app, t_point *point);
 int				event_expose(void *param);
-int				event_key(int keycode, void *param);
+int				event_key_down(int keycode, void *param);
 void			exit_clean(t_map *map);
 
 #endif

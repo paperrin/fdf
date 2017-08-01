@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:11:36 by paperrin          #+#    #+#             */
-/*   Updated: 2017/03/28 20:25:19 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/01 20:30:43 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int		pixel_in_screen(t_pos *pos)
 	return (pos->x >= 0 && pos->x < W && pos->y >= 0 && pos->y < H);
 }
 
-void	draw_line(t_mlx *mlx, t_point a, t_point b)
+void	draw_line(t_app *app, t_point a, t_point b)
 {
 	t_pos		diff;
 	t_pos		step;
@@ -63,7 +63,7 @@ void	draw_line(t_mlx *mlx, t_point a, t_point b)
 		if (pixel_in_screen((&cur.pos)))
 		{
 			cur.color = color_gradient(a, b, cur.pos, diff);
-			set_pixel(mlx, &cur);
+			set_pixel(app, &cur);
 		}
 		else if (line_out_of_screen((&cur.pos), &step))
 			return ;

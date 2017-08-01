@@ -6,7 +6,7 @@
 #    By: paperrin <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 12:00:36 by paperrin          #+#    #+#              #
-#    Updated: 2017/03/28 17:36:12 by paperrin         ###   ########.fr        #
+#    Updated: 2017/08/01 21:04:40 by paperrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,12 +35,14 @@ INC_PARAMS	=	$(INC_DIRS:%=-I%)
 
 LIB_PARAMS	=	$(LIB_DIRS:%=-L%)
 
-CFILES		=	fdf.c			\
-				draw_line.c		\
-				color.c			\
-				map.c			\
-				render.c		\
-				set_pixel.c		\
+CFILES		=	fdf.c				\
+				draw_line.c			\
+				color.c				\
+				map.c				\
+				render.c			\
+				set_pixel.c			\
+				clear_image.c		\
+				update_matrices.c	\
 				event_handler.c
 
 HFILES		=	./include/fdf.h
