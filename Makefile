@@ -6,7 +6,7 @@
 #    By: paperrin <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 12:00:36 by paperrin          #+#    #+#              #
-#    Updated: 2017/08/01 21:04:40 by paperrin         ###   ########.fr        #
+#    Updated: 2017/08/01 21:18:51 by paperrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,3 +76,19 @@ fclean			:	clean
 						make -C ./libft/ fclean
 
 re				:	fclean all
+
+norm			:
+	@echo "\x1b[35m\n.==================[ \x1b[0m\c"
+	@echo "\x1b[35;1mNormi-Check\x1b[0m\c"
+	@echo " \x1b[35m]==================.\x1b[31;1m"
+	@norminette include/ src/ \
+		| tr "\n" "@" \
+		| sed -e "s/Norme: /$$/g" \
+		| tr "$$" "\n" \
+		| grep -e Error -e Warning \
+		| tr "@" "\n" \
+		| sed "N;$$!P;$$!D;$$d"
+	@echo "\x1b[0m\x1b[35m\c"
+	@echo ".___________________________________________________.\n\x1b[0m"
+
+.PHONY : all, clean, fclean, re, norm

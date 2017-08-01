@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 18:01:00 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/01 21:00:52 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/01 22:16:30 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 #include <stdio.h>
 
-static unsigned char	get_color_component(t_vec3f const * const pos
-		, t_map const * const map
+static unsigned char	get_color_component(t_vec3f const *const pos
+		, t_map const *const map
 		, unsigned char bot, unsigned char top)
 {
 	if (map->z_max - map->z_min == 0)
 		return (top);
 	return (
-		bot + ((float)(pos->z - map->z_min)  / (map->z_max - map->z_min))
-			* (top - bot)
-	);
+		bot + ((float)(pos->z - map->z_min) / (map->z_max - map->z_min))
+			* (top - bot));
 }
 
 static t_point			proj(int x, int y, int z, t_map *map)
@@ -36,7 +35,6 @@ static t_point			proj(int x, int y, int z, t_map *map)
 	point.color.r = get_color_component(&map_pos, map, 0, 255);
 	point.color.g = get_color_component(&map_pos, map, 100, 255);
 	point.color.b = get_color_component(&map_pos, map, 0, 255);
-
 	pos = ft_vec3f_transform(&map_pos, &map->mx);
 	point.pos.x = roundf(pos.x);
 	point.pos.y = roundf(pos.y);
@@ -67,10 +65,10 @@ static void				draw_sides(t_app *app, int x, int y)
 
 void					draw_map(t_app *app)
 {
-	int		x;
-	int		y;
+	int			x;
+	int			y;
 
-	clear_image(&app->draw_buf, get_color(app->mlx.core, (t_color){0,0,0}));
+	clear_image(&app->draw_buf, get_color(app->mlx.core, (t_color){0, 0, 0}));
 	y = 0;
 	while (y < app->map->h)
 	{
@@ -82,7 +80,7 @@ void					draw_map(t_app *app)
 		}
 		y++;
 	}
-
 	mlx_clear_window(app->mlx.core, app->mlx.win);
-	mlx_put_image_to_window(app->mlx.core, app->mlx.win, app->draw_buf.image, 0, 0);
+	mlx_put_image_to_window(app->mlx.core, app->mlx.win
+			, app->draw_buf.image, 0, 0);
 }

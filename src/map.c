@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 13:49:19 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/01 19:56:57 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/01 22:43:41 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static t_map		*alloc_map(char *file_path)
 	map = (t_map*)malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
-	fd = open(file_path, O_RDONLY);
-	if (fd == -1)
+	if ((fd = open(file_path, O_RDONLY)) < 0)
 		return (NULL);
 	nb_lines = 0;
 	while ((ret = ft_get_next_line(fd, &line)) > 0)
@@ -42,7 +41,7 @@ static t_map		*alloc_map(char *file_path)
 	return (map);
 }
 
-static void			free_str_tab(char **tab)
+static void			*free_str_tab(char **tab)
 {
 	int		i;
 
@@ -50,13 +49,31 @@ static void			free_str_tab(char **tab)
 	while (tab[++i])
 		free(tab[i]);
 	free(tab);
+	return (NULL);
+}
+
+static void			set_map_values(t_map *map, char **values
+		, size_t line_index)
+{
+	int		i;
+	int		z_value;
+
+	i = -1;
+	while (values[++i])
+	{
+		z_value = ft_atoi(values[i]);
+		map->z[line_index][i] = z_value;
+		if (z_value > map->z_max)
+			map->z_max = z_value;
+		else if (z_value < map->z_min)
+			map->z_min = z_value;
+	}
 }
 
 static t_map		*line_to_map(char *line, size_t line_index, t_map *map)
 {
 	char		**values;
 	int			i;
-	int			z;
 
 	values = ft_strsplit(line, ' ');
 	if (!values)
@@ -70,25 +87,13 @@ static t_map		*line_to_map(char *line, size_t line_index, t_map *map)
 		return (NULL);
 	map->z[line_index] = (int*)malloc(sizeof(int) * i);
 	if (!map->z[line_index])
-	{
-		free_str_tab(values);
-		return (NULL);
-	}
-	i = -1;
-	while (values[++i])
-	{
-		z = ft_atoi(values[i]);
-		map->z[line_index][i] = z;
-		if (z > map->z_max)
-			map->z_max = z;
-		else if (z < map->z_min)
-			map->z_min = z;
-	}
+		return (free_str_tab(values));
+	set_map_values(map, values, line_index);
 	free_str_tab(values);
 	return (map);
 }
 
-t_map 				*read_map(char *file_path)
+t_map				*read_map(char *file_path)
 {
 	int		fd;
 	char	*line;
