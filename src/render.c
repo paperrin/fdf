@@ -6,24 +6,11 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 18:01:00 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/01 23:43:10 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/02 20:22:26 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-#include <stdio.h>
-
-static unsigned char	get_color_component(t_vec3f const *const pos
-		, t_map const *const map
-		, unsigned char bot, unsigned char top)
-{
-	if (map->z_max - map->z_min == 0)
-		return (top);
-	return (
-		bot + ((float)(pos->z - map->z_min) / (map->z_max - map->z_min))
-			* (top - bot));
-}
 
 static t_point			proj(int x, int y, int z, t_map *map)
 {
@@ -32,9 +19,7 @@ static t_point			proj(int x, int y, int z, t_map *map)
 	t_vec3f		pos;
 
 	map_pos = ft_vec3f(x, y, z);
-	point.color.r = get_color_component(&map_pos, map, 0, 255);
-	point.color.g = get_color_component(&map_pos, map, 100, 255);
-	point.color.b = get_color_component(&map_pos, map, 0, 255);
+	point.color = get_point_color(&map_pos, map);
 	pos = ft_vec3f_transform(&map_pos, &map->mx);
 	point.pos.x = roundf(pos.x);
 	point.pos.y = roundf(pos.y);

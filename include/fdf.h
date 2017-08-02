@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:44:41 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/01 23:17:40 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/02 20:00:38 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct		s_map
 	int				w;
 	int				h;
 	int				**z;
+	int				is_colored;
+	int				**colors;
 	int				z_max;
 	int				z_min;
 	int				zoom;
@@ -112,6 +114,10 @@ void				draw_line(t_app *app, t_point p1, t_point p2);
 void				update_matrices(t_map *map);
 t_map				*read_map(char *file_path);
 void				draw_map(t_app *app);
+int					**alloc_colors(t_map *map);
+int					get_map_color(t_map *map, const char *str);
+t_color				get_point_color(t_vec3f const *const pos
+		, t_map const *const map);
 void				set_pixel(t_app *app, t_point *point);
 int					event_expose(void *param);
 int					event_key_down(int keycode, void *param);

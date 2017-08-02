@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 13:49:19 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/01 22:58:26 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/02 20:21:18 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static void			set_map_values(t_map *map, char **values
 			map->z_max = z_value;
 		else if (z_value < map->z_min)
 			map->z_min = z_value;
+		map->colors[line_index][i] = get_map_color(map, values[i]);
 	}
 }
 
@@ -86,7 +87,8 @@ static t_map		*line_to_map(char *line, size_t line_index, t_map *map)
 	else if (map->w != i)
 		return (NULL);
 	map->z[line_index] = (int*)malloc(sizeof(int) * i);
-	if (!map->z[line_index])
+	map->colors[line_index] = (int*)malloc(sizeof(int) * i);
+	if (!map->z[line_index] || !map->colors[line_index])
 		return (free_str_tab(values));
 	set_map_values(map, values, line_index);
 	free_str_tab(values);
@@ -101,7 +103,8 @@ t_map				*read_map(char *file_path)
 	int		y;
 	t_map	*map;
 
-	if (!(map = alloc_map(file_path)))
+	if (!(map = alloc_map(file_path))
+			|| !(map->colors = alloc_colors(map)))
 		return (NULL);
 	if ((fd = open(file_path, O_RDONLY)) < 0)
 		return (NULL);

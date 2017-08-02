@@ -6,7 +6,7 @@
 #    By: paperrin <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 12:00:36 by paperrin          #+#    #+#              #
-#    Updated: 2017/08/01 21:18:51 by paperrin         ###   ########.fr        #
+#    Updated: 2017/08/02 20:00:54 by paperrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ CFILES		=	fdf.c				\
 				draw_line.c			\
 				color.c				\
 				map.c				\
+				map_color.c			\
 				render.c			\
 				set_pixel.c			\
 				clear_image.c		\
