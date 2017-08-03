@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:44:41 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/02 20:00:38 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/03 23:10:34 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "../libft/include/ft_math.h"
+# include "../libft/include/ft_printf.h"
 
 # define W 1600
 # define H 800
@@ -42,6 +43,10 @@
 # define KC_ROT_Z_M 12
 # define KC_ROT_Y_P 2
 # define KC_ROT_Y_M 0
+
+# define KC_RESET 15
+# define KC_TOGGLE_DEBUG 122
+# define KC_TOGGLE_CONTROLS 120
 
 typedef struct		s_map
 {
@@ -86,6 +91,8 @@ typedef struct		s_app
 	int				width;
 	int				height;
 	t_map			*map;
+	int				show_debug;
+	int				show_controls;
 }					t_app;
 
 typedef struct		s_color
@@ -121,5 +128,11 @@ t_color				get_point_color(t_vec3f const *const pos
 void				set_pixel(t_app *app, t_point *point);
 int					event_expose(void *param);
 int					event_key_down(int keycode, void *param);
+void				put_info(t_app *app);
+void				key_escape(t_app *app, char *e);
+void				key_move(t_app *app, char *e);
+void				key_rot(t_app *app, char *e);
+void				key_reset(t_app *app, char *e);
+void				key_toggle_info(t_app *app, char *e);
 
 #endif

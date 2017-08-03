@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 18:01:00 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/02 20:22:26 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/03 22:42:22 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ void					draw_map(t_app *app)
 	mlx_clear_window(app->mlx.core, app->mlx.win);
 	mlx_put_image_to_window(app->mlx.core, app->mlx.win
 			, app->draw_buf.image, 0, 0);
+	put_info(app);
 }

@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:43:00 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/02 20:46:54 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/04 00:11:32 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int		create_app(t_app *app, size_t width, size_t height
 			, &(app->draw_buf.bytes_width)
 			, &(app->draw_buf.is_big_endian));
 	app->draw_buf.bytes_height = height;
+	app->show_debug = 0;
+	app->show_controls = 0;
 	return (1);
 }
 
@@ -70,7 +72,7 @@ int				main(int ac, char **av)
 	app.map->x_rot = 0;
 	app.map->y_rot = 0;
 	app.map->z_rot = 0;
-	mlx_expose_hook(app.mlx.win, &event_expose, app.mlx.core);
+	mlx_expose_hook(app.mlx.win, &event_expose, &app);
 	mlx_hook(app.mlx.win, 2, 3, &event_key_down, &app);
 	update_matrices(app.map);
 	draw_map(&app);
