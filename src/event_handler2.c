@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 23:25:12 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/03 23:25:14 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/05 21:16:02 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,25 @@ void		key_reset(t_app *app, char *e)
 
 void		key_move(t_app *app, char *e)
 {
+	const float		move_speed = 10;
+	const int		zoom_speed = 2;
+
 	if (*e == 'U')
-		app->map->y_off++;
+		app->map->y_off -= move_speed;
 	else if (*e == 'D')
-		app->map->y_off--;
+		app->map->y_off += move_speed;
 	else if (*e == 'L')
-		app->map->x_off++;
+		app->map->x_off -= move_speed;
 	else if (*e == 'R')
-		app->map->x_off--;
-	else if (*e == '+' && app->map->zoom < 2048)
-		app->map->zoom *= 2;
-	else if (*e == '-' && app->map->zoom > 1)
-		app->map->zoom /= 2;
+		app->map->x_off += move_speed;
+	else if (*e == '+')
+		app->map->zoom *= zoom_speed;
+	else if (*e == '-')
+		app->map->zoom /= zoom_speed;
+	if (app->map->zoom > 2048)
+		app->map->zoom = 2048;
+	else if (app->map->zoom < 0.5)
+		app->map->zoom = 1;
 	update_matrices(app->map);
 	draw_map(app);
 }

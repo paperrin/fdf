@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 21:21:26 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/04 00:18:13 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/05 21:15:10 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,11 @@ void			put_info(t_app *app)
 	free(format);
 	if (!str)
 		return ;
+	point.pos = (t_pos){7, 2};
+	point.color = (t_color){0, 0, 0};
+	put_string_to_screen(app, point, str);
 	point.pos = (t_pos){5, 0};
-	point.color = (t_color){255, 255, 255};
+	point.color = (t_color){100, 255, 255};
 	put_string_to_screen(app, point, str);
 	free(str);
 }
