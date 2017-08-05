@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:44:41 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/05 21:05:47 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/06 01:31:39 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@
 # define KC_RESET 15
 # define KC_TOGGLE_DEBUG 122
 # define KC_TOGGLE_CONTROLS 120
+
+# define COLOR_BOT_DEFAULT 0x006400
+# define COLOR_TOP_DEFAULT 0xffffff
 
 typedef struct		s_map
 {
@@ -93,6 +96,10 @@ typedef struct		s_app
 	t_map			*map;
 	int				show_debug;
 	int				show_controls;
+	char			*filepath;
+	int				custom_colors;
+	int				color_bot;
+	int				color_top;
 }					t_app;
 
 typedef struct		s_color
@@ -124,7 +131,7 @@ void				draw_map(t_app *app);
 int					**alloc_colors(t_map *map);
 int					get_map_color(t_map *map, const char *str);
 t_color				get_point_color(t_vec3f const *const pos
-		, t_map const *const map);
+		, t_app const *const app);
 void				set_pixel(t_app *app, t_point *point);
 int					event_expose(void *param);
 int					event_key_down(int keycode, void *param);
@@ -134,5 +141,8 @@ void				key_move(t_app *app, char *e);
 void				key_rot(t_app *app, char *e);
 void				key_reset(t_app *app, char *e);
 void				key_toggle_info(t_app *app, char *e);
+void				usage(char *error);
+void				error(char *error);
+int					parse_args(int ac, char **av, t_app *app);
 
 #endif

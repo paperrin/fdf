@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 13:49:19 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/02 20:21:18 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/06 01:30:25 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_map		*alloc_map(char *file_path)
 	t_map	*map;
 
 	if ((fd = open(file_path, O_RDONLY)) < 0)
-		return (NULL);
+		usage("Could not open file.");
 	map = (t_map*)malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
@@ -29,7 +29,7 @@ static t_map		*alloc_map(char *file_path)
 	while ((ret = ft_get_next_line(fd, &line)) > 0)
 		nb_lines++;
 	if (ret != 0)
-		return (NULL);
+		error("Could not read file.");
 	close(fd);
 	map->w = -1;
 	map->h = nb_lines;
@@ -85,7 +85,7 @@ static t_map		*line_to_map(char *line, size_t line_index, t_map *map)
 	if (map->w == -1)
 		map->w = i;
 	else if (map->w != i)
-		return (NULL);
+		error("Inconsistent map width.");
 	map->z[line_index] = (int*)malloc(sizeof(int) * i);
 	map->colors[line_index] = (int*)malloc(sizeof(int) * i);
 	if (!map->z[line_index] || !map->colors[line_index])
@@ -107,7 +107,7 @@ t_map				*read_map(char *file_path)
 			|| !(map->colors = alloc_colors(map)))
 		return (NULL);
 	if ((fd = open(file_path, O_RDONLY)) < 0)
-		return (NULL);
+		usage("Could not open file.");
 	y = 0;
 	while ((ret = ft_get_next_line(fd, &line)) > 0)
 	{
@@ -118,6 +118,8 @@ t_map				*read_map(char *file_path)
 		}
 		y++;
 	}
+	if (ret != 0)
+		error("Could not read file.");
 	close(fd);
 	return (map);
 }

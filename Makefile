@@ -6,7 +6,7 @@
 #    By: paperrin <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 12:00:36 by paperrin          #+#    #+#              #
-#    Updated: 2017/08/03 22:42:18 by paperrin         ###   ########.fr        #
+#    Updated: 2017/08/05 23:49:11 by paperrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ CFILES		=	fdf.c				\
 				put_info.c			\
 				update_matrices.c	\
 				event_handler.c		\
-				event_handler2.c
+				event_handler2.c	\
+				parse_args.c
 
 HFILES		=	./include/fdf.h
 

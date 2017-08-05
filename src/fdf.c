@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:43:00 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/04 00:11:32 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/06 00:05:57 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ int				main(int ac, char **av)
 	app.mlx.win = NULL;
 	app.draw_buf.image = NULL;
 	app.map = NULL;
-	if (ac == 2)
-		app.map = read_map(av[1]);
+	if (!parse_args(ac, av, &app))
+		return (EXIT_FAILURE);
+	app.map = read_map(app.filepath);
 	if (!app.map)
 		destroy_app(&app, EXIT_FAILURE);
 	if (!create_app(&app, W, H, "FDF paperrin"))
