@@ -6,7 +6,7 @@
 /*   By: paperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 12:43:00 by paperrin          #+#    #+#             */
-/*   Updated: 2017/08/06 00:05:57 by paperrin         ###   ########.fr       */
+/*   Updated: 2017/08/06 16:58:36 by paperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,13 @@ void			destroy_app(t_app *app, int exit_code)
 		mlx_destroy_window(app->mlx.core, app->mlx.win);
 	if (app->draw_buf.image)
 		mlx_destroy_image(app->mlx.core, app->draw_buf.image);
-	i = -1;
 	if (app->map)
 	{
+		i = -1;
+		while (app->map->colors && ++i < app->map->h)
+			free(app->map->colors[i]);
+		free(app->map->colors);
+		i = -1;
 		while (app->map->z && ++i < app->map->h)
 			free(app->map->z[i]);
 		free(app->map);
